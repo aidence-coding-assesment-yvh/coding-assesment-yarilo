@@ -1,0 +1,21 @@
+#users-table table, th, td {
+    padding: 5px;
+    border: 1px solid #ddd;
+}
+
+#users-table th {
+    background-color: darkgrey;
+}
+
+#users-table {
+    border-collapse: collapse;
+    border-spacing: 0px;
+}
+
+#users-table tr:hover {
+    background-color: darkgray;
+}
+
+#users-table tr:nth-child(even) {
+    background-color: rgb(235, 235, 235);
+}
