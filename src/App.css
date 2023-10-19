@@ -13,3 +13,7 @@
   left: 0;
   margin: 1.5rem;
 }
+
+.action-icon {
+  cursor: pointer;
+}
