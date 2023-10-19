@@ -7,3 +7,8 @@
   color: red;
   cursor: pointer;
 }
+
+.delete-edit-icon {
+  color: black;
+  cursor: pointer;
+}

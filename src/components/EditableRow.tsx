@@ -1,6 +1,6 @@
 import "./EditableRow.css";
 import { cloneDeep } from "lodash";
-import { Check, X } from "lucide-react";
+import { Check, X, Trash } from "lucide-react";
 import User from "../types/User";
 import { useState } from "react";
 
@@ -8,9 +8,15 @@ type EditableRowProps = {
   user: User;
   onConfirm: (user: User) => void;
   onCancel: () => void;
+  onDelete: (userId: User["id"]) => void;
 };
 
-const EditableRow = ({ user, onConfirm, onCancel }: EditableRowProps) => {
+const EditableRow = ({
+  user,
+  onConfirm,
+  onCancel,
+  onDelete,
+}: EditableRowProps) => {
   const [name, setName] = useState(user.name);
   const [email, setEmail] = useState(user.email);
 
@@ -41,6 +47,9 @@ const EditableRow = ({ user, onConfirm, onCancel }: EditableRowProps) => {
       </td>
       <td className="cancel-edit-icon" onClick={onCancel}>
         <X />
+      </td>
+      <td className="delete-edit-icon" onClick={() => onDelete(user.id)}>
+        <Trash />
       </td>
     </tr>
   );

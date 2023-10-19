@@ -54,6 +54,13 @@ function App() {
     setUsers(newUsers);
   };
 
+  const onDeleteUser = (userId: User["id"]) => {
+    const newUsers: User[] = cloneDeep(users);
+    const index = newUsers.findIndex((u) => u.id === userId);
+    newUsers.splice(index, 1);
+    setUsers(newUsers);
+  };
+
   const filteredUsers = filterUsers(users, filter);
   return (
     <>
@@ -61,7 +68,11 @@ function App() {
         <img src={logo} className="logo react" alt="Aidence logo" />
         <div className="content">
           <FilterInput onChange={onChangeFilter} />
-          <Table onSaveUser={onSaveUser} users={filteredUsers} />
+          <Table
+            onSaveUser={onSaveUser}
+            onDeleteUser={onDeleteUser}
+            users={filteredUsers}
+          />
           {error ? <p>{error}</p> : null}
         </div>
       </div>

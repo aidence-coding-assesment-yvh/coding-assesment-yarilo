@@ -8,9 +8,10 @@ import EditableRow from "./EditableRow";
 type TableProps = {
   users: User[];
   onSaveUser: (user: User) => void;
+  onDeleteUser: (user: User["id"]) => void;
 };
 
-const Table = ({ users, onSaveUser }: TableProps) => {
+const Table = ({ users, onSaveUser, onDeleteUser }: TableProps) => {
   const [userToEdit, setUserToEdit] = useState<User | null>();
 
   const onClickConfirm = (user: User) => {
@@ -20,6 +21,12 @@ const Table = ({ users, onSaveUser }: TableProps) => {
   const onClickEdit = (user: User) => {
     setUserToEdit(cloneDeep(user));
   };
+
+  const onClickDelete = (userId: User["id"]) => {
+    setUserToEdit(null);
+    onDeleteUser(userId);
+  };
+
   return (
     <table id="users-table">
       <thead>
@@ -27,7 +34,12 @@ const Table = ({ users, onSaveUser }: TableProps) => {
           <th>User</th>
           <th>Email</th>
           <th></th>
-          {Boolean(userToEdit) ? <th></th> : null}
+          {Boolean(userToEdit) ? (
+            <>
+              <th></th>
+              <th></th>
+            </>
+          ) : null}
         </tr>
       </thead>
       <tbody>
@@ -38,6 +50,7 @@ const Table = ({ users, onSaveUser }: TableProps) => {
                 user={userToEdit}
                 onCancel={() => setUserToEdit(null)}
                 onConfirm={(user) => onClickConfirm(user)}
+                onDelete={onClickDelete}
               />
             );
           }
