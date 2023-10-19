@@ -10,7 +10,7 @@ const FilterInput = ({ onChange }: FilterInputProps) => (
     <input
       type="search"
       id="filter-user"
-      name="fiilter-user"
+      name="filter-user"
       placeholder="Type name or email..."
       onChange={onChange}
     />

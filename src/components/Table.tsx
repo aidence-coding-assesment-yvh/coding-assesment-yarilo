@@ -60,7 +60,11 @@ const Table = ({ users, onSaveUser, onDeleteUser }: TableProps) => {
             <tr key={user.id}>
               <td>{user.name}</td>
               <td>{user.email}</td>
-              <td className="action-icon" onClick={() => onClickEdit(user)}>
+              <td
+                className="action-icon"
+                data-testid="edit-action"
+                onClick={() => onClickEdit(user)}
+              >
                 <Pencil />
               </td>
             </tr>
