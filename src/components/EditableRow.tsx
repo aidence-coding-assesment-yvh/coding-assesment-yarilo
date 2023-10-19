@@ -27,7 +27,7 @@ const EditableRow = ({
     onConfirm(newUser);
   };
   return (
-    <tr key={user.id}>
+    <tr>
       <td>
         <input
           type={"text"}
@@ -42,13 +42,16 @@ const EditableRow = ({
           onChange={({ target }) => setEmail(target.value)}
         />
       </td>
-      <td className="confirm-edit-icon" onClick={onClickConfirm}>
+      <td className="action-icon confirm-edit-icon" onClick={onClickConfirm}>
         <Check />
       </td>
-      <td className="cancel-edit-icon" onClick={onCancel}>
+      <td className="action-icon cancel-edit-icon" onClick={onCancel}>
         <X />
       </td>
-      <td className="delete-edit-icon" onClick={() => onDelete(user.id)}>
+      <td
+        className="action-icon delete-edit-icon"
+        onClick={() => onDelete(user.id)}
+      >
         <Trash />
       </td>
     </tr>

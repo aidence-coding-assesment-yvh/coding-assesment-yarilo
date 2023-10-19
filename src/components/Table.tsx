@@ -2,7 +2,7 @@ import User from "../types/User";
 import { cloneDeep } from "lodash";
 import { Pencil } from "lucide-react";
 import "./Table.css";
-import { useState } from "react";
+import { useState, Fragment } from "react";
 import EditableRow from "./EditableRow";
 
 type TableProps = {
@@ -46,19 +46,21 @@ const Table = ({ users, onSaveUser, onDeleteUser }: TableProps) => {
         {users.map((user) => {
           if (userToEdit?.id === user.id) {
             return (
-              <EditableRow
-                user={userToEdit}
-                onCancel={() => setUserToEdit(null)}
-                onConfirm={(user) => onClickConfirm(user)}
-                onDelete={onClickDelete}
-              />
+              <Fragment key={user.id}>
+                <EditableRow
+                  user={userToEdit}
+                  onCancel={() => setUserToEdit(null)}
+                  onConfirm={(user) => onClickConfirm(user)}
+                  onDelete={onClickDelete}
+                />
+              </Fragment>
             );
           }
           return (
             <tr key={user.id}>
               <td>{user.name}</td>
               <td>{user.email}</td>
-              <td className="edit-icon" onClick={() => onClickEdit(user)}>
+              <td className="action-icon" onClick={() => onClickEdit(user)}>
                 <Pencil />
               </td>
             </tr>

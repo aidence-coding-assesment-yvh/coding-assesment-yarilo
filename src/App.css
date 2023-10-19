@@ -7,9 +7,25 @@
 }
 
 .logo {
-  height: 2rem;
+  height: 3rem;
+  margin: 1.5rem;
   position: absolute;
   top: 0;
   left: 0;
-  margin: 1.5rem;
+}
+
+.action-icon {
+  cursor: pointer;
+}
+
+.restore-button {
+  margin-top: 1.5rem;
+
+  background-color: grey;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 1rem;
 }
