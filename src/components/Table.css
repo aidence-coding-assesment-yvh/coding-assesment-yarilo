@@ -21,3 +21,7 @@ td {
 #users-table tr:nth-child(even) {
   background-color: rgb(235, 235, 235);
 }
+
+.edit-icon {
+  cursor: pointer;
+}
