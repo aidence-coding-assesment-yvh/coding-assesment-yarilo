@@ -27,7 +27,7 @@ const EditableRow = ({
     onConfirm(newUser);
   };
   return (
-    <tr key={user.id}>
+    <tr>
       <td>
         <input
           type={"text"}
