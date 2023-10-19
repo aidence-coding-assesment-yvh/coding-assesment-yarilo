@@ -1,5 +1,4 @@
 import logo from "./assets/logo.svg";
-import "./App.css";
 import { cloneDeep } from "lodash";
 import { useEffect, useState } from "react";
 import ProviderRequest from "./providers/request";
@@ -7,6 +6,7 @@ import { ENDPOINTS } from "./constants";
 import User from "./types/User";
 import Table from "./components/Table";
 import FilterInput from "./components/FilterInput";
+import "./App.css";
 
 const filterUsers = (users: User[], filter: string): User[] => {
   if (!filter) return users;
@@ -19,6 +19,17 @@ const filterUsers = (users: User[], filter: string): User[] => {
   });
 };
 
+const saveUsersLocally = (users: User[]) => {
+  window.localStorage.setItem("users", JSON.stringify(users));
+};
+const fetchUsersLocally = (): User[] | null => {
+  const localUsersString = window.localStorage.getItem("users");
+  if (localUsersString) {
+    return JSON.parse(localUsersString);
+  }
+  return null;
+};
+
 function App() {
   const [users, setUsers] = useState<User[]>([]);
   const [error, setError] = useState<string>("");
@@ -26,8 +37,13 @@ function App() {
 
   const fetchUsers = async () => {
     try {
-      const users = await ProviderRequest.get(ENDPOINTS.USERS);
-      setUsers(users);
+      const localUsers = fetchUsersLocally();
+      if (localUsers) {
+        setUsers(localUsers);
+      } else {
+        const users = await ProviderRequest.get(ENDPOINTS.USERS);
+        setUsers(users);
+      }
     } catch (error) {
       console.error(`Error trying to fetch users: ${error}`);
       setError(String(error));
@@ -52,6 +68,7 @@ function App() {
     const index = newUsers.findIndex((u) => u.id === userToEdit.id);
     newUsers[index] = userToEdit;
     setUsers(newUsers);
+    saveUsersLocally(newUsers);
   };
 
   const onDeleteUser = (userId: User["id"]) => {
@@ -59,6 +76,7 @@ function App() {
     const index = newUsers.findIndex((u) => u.id === userId);
     newUsers.splice(index, 1);
     setUsers(newUsers);
+    saveUsersLocally(newUsers);
   };
 
   const filteredUsers = filterUsers(users, filter);
