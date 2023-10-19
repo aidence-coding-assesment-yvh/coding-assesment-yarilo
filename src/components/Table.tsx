@@ -1,8 +1,13 @@
 import User from "../types/User";
+import { cloneDeep } from "lodash";
+import { Pencil } from "lucide-react";
 import "./Table.css";
+import { useState } from "react";
+import EditableRow from "./EditableRow";
 
 type TableProps = {
   users: User[];
+  onConfirmEdit: (user: User) => void;
 };
 
 const Table = ({ users }: TableProps) => {
@@ -15,7 +20,7 @@ const Table = ({ users }: TableProps) => {
       <tbody>
         {users.map((user) => {
           return (
-            <tr>
+            <tr key={user.id}>
               <td>{user.name}</td>
               <td>{user.email}</td>
             </tr>
