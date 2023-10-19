@@ -2,7 +2,7 @@ import logo from "./assets/logo.svg";
 import { cloneDeep } from "lodash";
 import { useEffect, useState } from "react";
 import ProviderRequest from "./providers/request";
-import { ENDPOINTS } from "./constants";
+import { ENDPOINTS, LOCAL_STORAGE_USERS_KEY } from "./constants";
 import User from "./types/User";
 import Table from "./components/Table";
 import FilterInput from "./components/FilterInput";
@@ -20,14 +20,17 @@ const filterUsers = (users: User[], filter: string): User[] => {
 };
 
 const saveUsersLocally = (users: User[]) => {
-  window.localStorage.setItem("users", JSON.stringify(users));
+  window.localStorage.setItem(LOCAL_STORAGE_USERS_KEY, JSON.stringify(users));
 };
 const fetchUsersLocally = (): User[] | null => {
-  const localUsersString = window.localStorage.getItem("users");
+  const localUsersString = window.localStorage.getItem(LOCAL_STORAGE_USERS_KEY);
   if (localUsersString) {
     return JSON.parse(localUsersString);
   }
   return null;
+};
+const deleteLocalUsers = () => {
+  window.localStorage.removeItem(LOCAL_STORAGE_USERS_KEY);
 };
 
 function App() {
@@ -79,7 +82,13 @@ function App() {
     saveUsersLocally(newUsers);
   };
 
+  const onClickRestore = async () => {
+    deleteLocalUsers();
+    await fetchUsers();
+  };
+
   const filteredUsers = filterUsers(users, filter);
+  const showRestoreButton = Boolean(fetchUsersLocally());
   return (
     <>
       <div className="app">
@@ -93,6 +102,11 @@ function App() {
           />
           {error ? <p>{error}</p> : null}
         </div>
+        {showRestoreButton ? (
+          <button className="restore-button" onClick={onClickRestore}>
+            Restore default values
+          </button>
+        ) : null}
       </div>
     </>
   );
