@@ -19,6 +19,7 @@
 }
 
 .restore-button {
+  cursor: pointer;
   margin-top: 1.5rem;
 
   background-color: grey;

@@ -31,6 +31,7 @@ const EditableRow = ({
       <td>
         <input
           type={"text"}
+          name={"name"}
           value={name}
           onChange={({ target }) => setName(target.value)}
         />
@@ -38,19 +39,29 @@ const EditableRow = ({
       <td>
         <input
           type={"text"}
+          name={"email"}
           value={email}
           onChange={({ target }) => setEmail(target.value)}
         />
       </td>
-      <td className="action-icon confirm-edit-icon" onClick={onClickConfirm}>
+      <td
+        className="action-icon confirm-edit-icon"
+        onClick={onClickConfirm}
+        data-testid="confirm-edit-action"
+      >
         <Check />
       </td>
-      <td className="action-icon cancel-edit-icon" onClick={onCancel}>
+      <td
+        className="action-icon cancel-edit-icon"
+        onClick={onCancel}
+        data-testid="cancel-edit-action"
+      >
         <X />
       </td>
       <td
         className="action-icon delete-edit-icon"
         onClick={() => onDelete(user.id)}
+        data-testid="delete-action"
       >
         <Trash />
       </td>
