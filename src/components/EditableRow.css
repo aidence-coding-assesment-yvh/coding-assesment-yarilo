@@ -1,0 +1,14 @@
+.confirm-edit-icon {
+  color: green;
+  cursor: pointer;
+}
+
+.cancel-edit-icon {
+  color: red;
+  cursor: pointer;
+}
+
+.delete-edit-icon {
+  color: black;
+  cursor: pointer;
+}

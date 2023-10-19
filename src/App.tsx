@@ -1,5 +1,6 @@
 import logo from "./assets/logo.svg";
 import "./App.css";
+import { cloneDeep } from "lodash";
 import { useEffect, useState } from "react";
 import ProviderRequest from "./providers/request";
 import { ENDPOINTS } from "./constants";
@@ -41,6 +42,25 @@ function App() {
     setFilter(event.target.value);
   };
 
+  const onSaveUser = (userToEdit: User) => {
+    // We always clone before modifying the data to:
+    // 1. Avoid side effects
+    // 2. Makes re-render/prop diff comparison in child components "easier".
+    // Related: https://react.dev/learn/tutorial-tic-tac-toe#why-immutability-is-important
+
+    const newUsers: User[] = cloneDeep(users);
+    const index = newUsers.findIndex((u) => u.id === userToEdit.id);
+    newUsers[index] = userToEdit;
+    setUsers(newUsers);
+  };
+
+  const onDeleteUser = (userId: User["id"]) => {
+    const newUsers: User[] = cloneDeep(users);
+    const index = newUsers.findIndex((u) => u.id === userId);
+    newUsers.splice(index, 1);
+    setUsers(newUsers);
+  };
+
   const filteredUsers = filterUsers(users, filter);
   return (
     <>
@@ -48,7 +68,11 @@ function App() {
         <img src={logo} className="logo react" alt="Aidence logo" />
         <div className="content">
           <FilterInput onChange={onChangeFilter} />
-          <Table users={filteredUsers} />
+          <Table
+            onSaveUser={onSaveUser}
+            onDeleteUser={onDeleteUser}
+            users={filteredUsers}
+          />
           {error ? <p>{error}</p> : null}
         </div>
       </div>
