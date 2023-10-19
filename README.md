@@ -4,7 +4,8 @@
 
 Solution to the Aidence Coding Assesment.
 
-<img src="https://github.com/Yarilo/coding-assesment-yarilo/assets/2855384/93b55e7c-7fff-412a-bc83-35c95e45dcd8" width="768" />
+![image](https://github.com/aidence-coding-assesment-yvh/coding-assesment-yarilo/assets/148459021/bc9c5a4b-d7ab-4be5-be32-21c6c03dc2e9)
+
 
 ## Dependencies
 
